@@ -29,11 +29,12 @@ Pick a variant:
 
 ### Easy way (PowerShell)
 
-Right-click `install.ps1` → *Run with PowerShell*. Defaults to safe.
+Right-click `install.ps1` → *Run with PowerShell*. The script asks which variant you want, then auto-elevates via UAC.
 
-For the yolo variant:
+To skip the prompt:
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Variant safe
 powershell -ExecutionPolicy Bypass -File .\install.ps1 -Variant yolo
 ```
 

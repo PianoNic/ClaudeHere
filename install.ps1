@@ -3,10 +3,31 @@
 
 param(
     [ValidateSet('safe', 'yolo')]
-    [string]$Variant = 'safe'
+    [string]$Variant
 )
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+# Interactive prompt if -Variant was not passed (e.g. double-click).
+if (-not $PSBoundParameters.ContainsKey('Variant')) {
+    Write-Host ''
+    Write-Host 'ClaudeHere installer' -ForegroundColor Cyan
+    Write-Host '--------------------'
+    Write-Host '  [1] safe   - runs `claude` (keeps per-tool permission prompts, recommended)'
+    Write-Host '  [2] yolo   - runs `claude --dangerously-skip-permissions` (skips prompts, use with care)'
+    Write-Host ''
+    do {
+        $choice = Read-Host 'Pick a variant [1/2] (default 1)'
+        if ([string]::IsNullOrWhiteSpace($choice)) { $choice = '1' }
+        switch ($choice.Trim().ToLower()) {
+            { $_ -in '1', 'safe', 's' } { $Variant = 'safe' }
+            { $_ -in '2', 'yolo', 'y' } { $Variant = 'yolo' }
+            default { Write-Host "Unknown choice '$choice'. Type 1 or 2." -ForegroundColor Yellow; $Variant = $null }
+        }
+    } while (-not $Variant)
+    Write-Host "Selected: $Variant" -ForegroundColor Green
+    Write-Host ''
+}
 
 function Pause-Countdown {
     param([int]$Seconds = 5, [string]$Color = 'Gray')
