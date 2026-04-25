@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[-HKEY_CLASSES_ROOT\Directory\shell\ClaudeHere]
+[-HKEY_CLASSES_ROOT\Directory\shell\ClaudeHereResume]
+[-HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHere]
+[-HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHereResume]
+[-HKEY_CLASSES_ROOT\Drive\shell\ClaudeHere]
+[-HKEY_CLASSES_ROOT\Drive\shell\ClaudeHereResume]

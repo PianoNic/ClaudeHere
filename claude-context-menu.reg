@@ -1,0 +1,46 @@
+Windows Registry Editor Version 5.00
+
+; ===== Right-click ON a folder =====
+[HKEY_CLASSES_ROOT\Directory\shell\ClaudeHere]
+@="Open Claude here"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\Directory\shell\ClaudeHere\command]
+@="cmd.exe /k \"cd /d \"%1\" && claude --dangerously-skip-permissions\""
+
+[HKEY_CLASSES_ROOT\Directory\shell\ClaudeHereResume]
+@="Open Claude here (continue)"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\Directory\shell\ClaudeHereResume\command]
+@="cmd.exe /k \"cd /d \"%1\" && claude --dangerously-skip-permissions --continue\""
+
+; ===== Right-click in empty space INSIDE a folder =====
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHere]
+@="Open Claude here"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHere\command]
+@="cmd.exe /k \"cd /d \"%V\" && claude --dangerously-skip-permissions\""
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHereResume]
+@="Open Claude here (continue)"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHereResume\command]
+@="cmd.exe /k \"cd /d \"%V\" && claude --dangerously-skip-permissions --continue\""
+
+; ===== Right-click on a drive (e.g. C:\) =====
+[HKEY_CLASSES_ROOT\Drive\shell\ClaudeHere]
+@="Open Claude here"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\Drive\shell\ClaudeHere\command]
+@="cmd.exe /k \"cd /d \"%1\" && claude --dangerously-skip-permissions\""
+
+[HKEY_CLASSES_ROOT\Drive\shell\ClaudeHereResume]
+@="Open Claude here (continue)"
+"Icon"="cmd.exe"
+
+[HKEY_CLASSES_ROOT\Drive\shell\ClaudeHereResume\command]
+@="cmd.exe /k \"cd /d \"%1\" && claude --dangerously-skip-permissions --continue\""
