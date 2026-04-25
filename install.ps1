@@ -10,13 +10,18 @@ param(
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 
-# Translations live in translations.ps1 — see that file to add a language.
-$translationsFile = Join-Path $here 'translations.ps1'
+# Translations live in translations.xml — see that file to add a language.
+$translationsFile = Join-Path $here 'translations.xml'
 if (-not (Test-Path $translationsFile)) {
-    Write-Host "translations.ps1 not found at $translationsFile" -ForegroundColor Red
+    Write-Host "translations.xml not found at $translationsFile" -ForegroundColor Red
     exit 1
 }
-$translations = & $translationsFile
+$xmlDoc = New-Object System.Xml.XmlDocument
+$xmlDoc.Load($translationsFile)
+$translations = @{}
+foreach ($lang in $xmlDoc.translations.language) {
+    $translations[$lang.code] = @($lang.GetAttribute('open'), $lang.GetAttribute('continue'))
+}
 
 function Resolve-LanguageKey {
     param([string]$Culture)
@@ -108,7 +113,7 @@ try {
     Copy-Item -Force -Path $iconSource -Destination (Join-Path $iconDir 'claude.ico')
     Write-Host "Icon installed to $iconDir\claude.ico" -ForegroundColor Green
 
-    $regFile = Join-Path $here "install-$Variant.reg"
+    $regFile = Join-Path $here "reg\install-$Variant.reg"
     if (-not (Test-Path $regFile)) {
         throw "Registry file not found at $regFile."
     }

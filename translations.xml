@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ClaudeHere translations.
+  Add a language: insert a new <language> element. The code is the primary
+  ISO 639-1 (e.g. de) or a tag like zh-Hans / zh-Hant / nb / fil.
+  At install time the OS UI culture is reduced to its primary code and
+  matched here. Missing languages fall back to en.
+  Save as UTF-8.
+-->
+<translations>
+  <language code="en" open="Open Claude here" continue="Open Claude here (continue)" />
+  <language code="de" open="Claude hier öffnen" continue="Claude hier öffnen (fortsetzen)" />
+  <language code="fr" open="Ouvrir Claude ici" continue="Ouvrir Claude ici (continuer)" />
+  <language code="es" open="Abrir Claude aquí" continue="Abrir Claude aquí (continuar)" />
+  <language code="it" open="Apri Claude qui" continue="Apri Claude qui (continua)" />
+  <language code="pt" open="Abrir Claude aqui" continue="Abrir Claude aqui (continuar)" />
+  <language code="nl" open="Claude hier openen" continue="Claude hier openen (hervatten)" />
+  <language code="pl" open="Otwórz Claude tutaj" continue="Otwórz Claude tutaj (kontynuuj)" />
+  <language code="cs" open="Otevřít Claude zde" continue="Otevřít Claude zde (pokračovat)" />
+  <language code="sk" open="Otvoriť Claude tu" continue="Otvoriť Claude tu (pokračovať)" />
+  <language code="hu" open="Claude megnyitása itt" continue="Claude megnyitása itt (folytatás)" />
+  <language code="ro" open="Deschide Claude aici" continue="Deschide Claude aici (continuă)" />
+  <language code="sv" open="Öppna Claude här" continue="Öppna Claude här (fortsätt)" />
+  <language code="nb" open="Åpne Claude her" continue="Åpne Claude her (fortsett)" />
+  <language code="da" open="Åbn Claude her" continue="Åbn Claude her (fortsæt)" />
+  <language code="fi" open="Avaa Claude tästä" continue="Avaa Claude tästä (jatka)" />
+  <language code="is" open="Opna Claude hér" continue="Opna Claude hér (halda áfram)" />
+  <language code="el" open="Άνοιγμα του Claude εδώ" continue="Άνοιγμα του Claude εδώ (συνέχεια)" />
+  <language code="tr" open="Claude'u burada aç" continue="Claude'u burada aç (devam et)" />
+  <language code="ru" open="Открыть Claude здесь" continue="Открыть Claude здесь (продолжить)" />
+  <language code="uk" open="Відкрити Claude тут" continue="Відкрити Claude тут (продовжити)" />
+  <language code="bg" open="Отвори Claude тук" continue="Отвори Claude тук (продължи)" />
+  <language code="sr" open="Otvori Claude ovde" continue="Otvori Claude ovde (nastavi)" />
+  <language code="hr" open="Otvori Claude ovdje" continue="Otvori Claude ovdje (nastavi)" />
+  <language code="sl" open="Odpri Claude tukaj" continue="Odpri Claude tukaj (nadaljuj)" />
+  <language code="lt" open="Atidaryti Claude čia" continue="Atidaryti Claude čia (tęsti)" />
+  <language code="lv" open="Atvērt Claude šeit" continue="Atvērt Claude šeit (turpināt)" />
+  <language code="et" open="Ava Claude siin" continue="Ava Claude siin (jätka)" />
+  <language code="ca" open="Obre Claude aquí" continue="Obre Claude aquí (continua)" />
+  <language code="eu" open="Ireki Claude hemen" continue="Ireki Claude hemen (jarraitu)" />
+  <language code="gl" open="Abrir Claude aquí" continue="Abrir Claude aquí (continuar)" />
+  <language code="ja" open="ここで Claude を開く" continue="ここで Claude を開く (続ける)" />
+  <language code="zh-Hans" open="在此打开 Claude" continue="在此打开 Claude (继续)" />
+  <language code="zh-Hant" open="在此開啟 Claude" continue="在此開啟 Claude (繼續)" />
+  <language code="ko" open="여기서 Claude 열기" continue="여기서 Claude 열기 (계속)" />
+  <language code="vi" open="Mở Claude tại đây" continue="Mở Claude tại đây (tiếp tục)" />
+  <language code="th" open="เปิด Claude ที่นี่" continue="เปิด Claude ที่นี่ (ดำเนินการต่อ)" />
+  <language code="id" open="Buka Claude di sini" continue="Buka Claude di sini (lanjutkan)" />
+  <language code="ms" open="Buka Claude di sini" continue="Buka Claude di sini (sambung)" />
+  <language code="fil" open="Buksan ang Claude dito" continue="Buksan ang Claude dito (ipagpatuloy)" />
+  <language code="ar" open="افتح Claude هنا" continue="افتح Claude هنا (متابعة)" />
+  <language code="fa" open="باز کردن Claude اینجا" continue="باز کردن Claude اینجا (ادامه)" />
+  <language code="he" open="פתח את Claude כאן" continue="פתח את Claude כאן (המשך)" />
+  <language code="hi" open="यहाँ Claude खोलें" continue="यहाँ Claude खोलें (जारी रखें)" />
+</translations>

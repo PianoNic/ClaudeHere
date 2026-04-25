@@ -36,7 +36,7 @@ $exitCode = 0
 try {
     Get-ChildItem -Path $here -Recurse -File -ErrorAction SilentlyContinue | Unblock-File -ErrorAction SilentlyContinue
 
-    $regFile = Join-Path $here 'uninstall.reg'
+    $regFile = Join-Path $here 'reg\uninstall.reg'
     if (-not (Test-Path $regFile)) {
         throw "Registry file not found at $regFile."
     }

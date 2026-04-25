@@ -50,34 +50,34 @@ Override with `-Language`:
 .\install.ps1 -Variant safe -Language ja
 ```
 
-To add or fix a translation, edit [`translations.ps1`](./translations.ps1) (UTF-8 with BOM) and open a PR.
+To add or fix a translation, edit [`translations.xml`](./translations.xml) and open a PR.
 
 > Labels are written to the registry as a snapshot at install time. If you change Windows UI language afterwards, re-run `install.ps1` to refresh.
 
 ### Manual way
 
 1. Copy `assets/claude.ico` to `%LOCALAPPDATA%\ClaudeHere\claude.ico`
-2. Double-click `install-safe.reg` *or* `install-yolo.reg`
+2. Double-click `reg/install-safe.reg` *or* `reg/install-yolo.reg`
 3. Confirm the registry merge
 
 > On Windows 11 the entries live under **Show more options** in the context menu (or hold `Shift` while right-clicking). If they don't show up, restart Explorer (Task Manager → *Windows Explorer* → *Restart*).
 
 ## Uninstall
 
-Run `uninstall.ps1`, or double-click `uninstall.reg` (this leaves the icon file behind; delete `%LOCALAPPDATA%\ClaudeHere\` manually if you care).
+Run `uninstall.ps1`, or double-click `reg/uninstall.reg` (this leaves the icon file behind; delete `%LOCALAPPDATA%\ClaudeHere\` manually if you care).
 
 ## Files
 
 | File | Purpose |
 | --- | --- |
-| `install-safe.reg` | Registry entries — runs `claude` |
-| `install-yolo.reg` | Registry entries — runs `claude --dangerously-skip-permissions` |
-| `uninstall.reg` | Removes all registry entries |
 | `install.ps1` | Copies the icon, imports the chosen `.reg`, applies localized labels |
-| `translations.ps1` | Per-language menu labels (edit to add a language) |
 | `uninstall.ps1` | Removes registry entries and the icon |
-| `claude.ico` | Multi-resolution icon (16/24/32/48/64/128/256) |
-| `claude-source.png` | Source 512×512 PNG |
+| `translations.xml` | Per-language menu labels (edit to add a language) |
+| `reg/install-safe.reg` | Registry entries — runs `claude` |
+| `reg/install-yolo.reg` | Registry entries — runs `claude --dangerously-skip-permissions` |
+| `reg/uninstall.reg` | Removes all registry entries |
+| `assets/claude.ico` | Multi-resolution icon (16/24/32/48/64/128/256) |
+| `assets/claude-source.png` | Source 512×512 PNG |
 
 ## Credit
 
