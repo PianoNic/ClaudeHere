@@ -82,7 +82,3 @@ Run `uninstall.ps1`, or double-click `reg/uninstall.reg` (this leaves the icon f
 ## Credit
 
 Icon: Anthropic Claude logo (CC0 / public domain), via UXWing.
-
-## License
-
-MIT
