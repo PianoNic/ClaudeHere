@@ -1,7 +1,7 @@
 # ClaudeHere
 
 <p align="center">
-  <img src="claude-source.png" width="128" alt="Claude icon" />
+  <img src="assets/claude-source.png" width="128" alt="Claude icon" />
 </p>
 
 Right-click anywhere in Windows Explorer to launch [Claude Code](https://claude.com/claude-code) in that folder.
@@ -41,7 +41,7 @@ The script copies `claude.ico` to `%LOCALAPPDATA%\ClaudeHere\` and imports the m
 
 ### Manual way
 
-1. Copy `claude.ico` to `%LOCALAPPDATA%\ClaudeHere\claude.ico`
+1. Copy `assets/claude.ico` to `%LOCALAPPDATA%\ClaudeHere\claude.ico`
 2. Double-click `install-safe.reg` *or* `install-yolo.reg`
 3. Confirm the registry merge
 
