@@ -1,12 +1,52 @@
 # ClaudeHere installer
-# Copies claude.ico to %LOCALAPPDATA%\ClaudeHere\ and imports the chosen .reg file.
+# Copies claude.ico to %LOCALAPPDATA%\ClaudeHere\, imports the chosen .reg file,
+# and localizes the menu entries to the OS UI language.
 
 param(
     [ValidateSet('safe', 'yolo')]
-    [string]$Variant
+    [string]$Variant,
+    [string]$Language
 )
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+# Translations live in translations.ps1 — see that file to add a language.
+$translationsFile = Join-Path $here 'translations.ps1'
+if (-not (Test-Path $translationsFile)) {
+    Write-Host "translations.ps1 not found at $translationsFile" -ForegroundColor Red
+    exit 1
+}
+$translations = & $translationsFile
+
+function Resolve-LanguageKey {
+    param([string]$Culture)
+    if ([string]::IsNullOrWhiteSpace($Culture)) { return 'en' }
+    $c = $Culture.Trim()
+    # Chinese: differentiate Simplified vs Traditional
+    if ($c -match '^zh-(Hans|CN|SG|MY)') { return 'zh-Hans' }
+    if ($c -match '^zh-(Hant|TW|HK|MO)') { return 'zh-Hant' }
+    if ($c -match '^zh') { return 'zh-Hans' }
+    # Norwegian variants
+    if ($c -match '^(nb|nn|no)') { return 'nb' }
+    # Filipino
+    if ($c -match '^(fil|tl)') { return 'fil' }
+    $primary = $c.Split('-')[0].ToLowerInvariant()
+    if ($translations.ContainsKey($primary)) { return $primary }
+    return 'en'
+}
+
+function Pause-Countdown {
+    param([int]$Seconds = 5, [string]$Color = 'Gray')
+    for ($i = $Seconds; $i -gt 0; $i--) {
+        Write-Host "`rClosing in $i seconds... (press any key to close now) " -NoNewline -ForegroundColor $Color
+        if ($Host.UI.RawUI.KeyAvailable) {
+            $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+            break
+        }
+        Start-Sleep -Seconds 1
+    }
+    Write-Host ''
+}
 
 # Interactive prompt if -Variant was not passed (e.g. double-click).
 if (-not $PSBoundParameters.ContainsKey('Variant')) {
@@ -29,24 +69,17 @@ if (-not $PSBoundParameters.ContainsKey('Variant')) {
     Write-Host ''
 }
 
-function Pause-Countdown {
-    param([int]$Seconds = 5, [string]$Color = 'Gray')
-    for ($i = $Seconds; $i -gt 0; $i--) {
-        Write-Host "`rClosing in $i seconds... (press any key to close now) " -NoNewline -ForegroundColor $Color
-        if ($Host.UI.RawUI.KeyAvailable) {
-            $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
-            break
-        }
-        Start-Sleep -Seconds 1
-    }
-    Write-Host ''
+# Resolve language (auto-detect from OS UI culture unless -Language is given)
+if ([string]::IsNullOrWhiteSpace($Language)) {
+    $Language = [Globalization.CultureInfo]::CurrentUICulture.Name
 }
+$langKey = Resolve-LanguageKey -Culture $Language
 
 # Self-elevate: importing into HKEY_CLASSES_ROOT writes to HKLM, which needs admin.
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (-not $isAdmin) {
     $scriptPath = $MyInvocation.MyCommand.Path
-    $argList = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$scriptPath`"", '-Variant', $Variant)
+    $argList = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$scriptPath`"", '-Variant', $Variant, '-Language', $Language)
     try {
         Start-Process -FilePath 'powershell.exe' -Verb RunAs -ArgumentList $argList -ErrorAction Stop
     } catch {
@@ -85,9 +118,27 @@ try {
         throw "reg.exe import failed with exit code $($proc.ExitCode)."
     }
 
+    # Localize the menu labels (Unicode-safe via .NET registry API).
+    $strings = $translations[$langKey]
+    Write-Host "Localizing menu entries: $langKey ($Language) -> '$($strings[0])' / '$($strings[1])'"
+    $keys = @(
+        @{ Path = 'Directory\shell\ClaudeHere';                    Text = $strings[0] },
+        @{ Path = 'Directory\shell\ClaudeHereContinue';            Text = $strings[1] },
+        @{ Path = 'Directory\Background\shell\ClaudeHere';         Text = $strings[0] },
+        @{ Path = 'Directory\Background\shell\ClaudeHereContinue'; Text = $strings[1] },
+        @{ Path = 'Drive\shell\ClaudeHere';                        Text = $strings[0] },
+        @{ Path = 'Drive\shell\ClaudeHereContinue';                Text = $strings[1] }
+    )
+    foreach ($k in $keys) {
+        $regKey = [Microsoft.Win32.Registry]::ClassesRoot.OpenSubKey($k.Path, $true)
+        if ($null -eq $regKey) { throw "Registry key not found: $($k.Path)" }
+        $regKey.SetValue('', $k.Text, [Microsoft.Win32.RegistryValueKind]::String)
+        $regKey.Close()
+    }
+
     Write-Host ''
-    Write-Host "Installed the '$Variant' variant." -ForegroundColor Green
-    Write-Host "Right-click any folder in Explorer (Windows 11: 'Show more options') to see 'Open Claude here'."
+    Write-Host "Installed the '$Variant' variant in language '$langKey'." -ForegroundColor Green
+    Write-Host "Right-click any folder in Explorer (Windows 11: 'Show more options') to see the entry."
     Pause-Countdown -Seconds 5 -Color Gray
 } catch {
     Write-Host ''

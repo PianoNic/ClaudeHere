@@ -38,7 +38,21 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1 -Variant safe
 powershell -ExecutionPolicy Bypass -File .\install.ps1 -Variant yolo
 ```
 
-The script copies `claude.ico` to `%LOCALAPPDATA%\ClaudeHere\` and imports the matching `.reg` file.
+The script copies `claude.ico` to `%LOCALAPPDATA%\ClaudeHere\`, imports the matching `.reg` file, and localizes the menu labels to your OS UI language.
+
+### Localization
+
+The menu entries are translated at install time based on your Windows UI language. Currently shipped: `de`, `fr`, `es`, `it`, `pt`, `nl`, `pl`, `cs`, `sk`, `hu`, `ro`, `sv`, `nb`, `da`, `fi`, `is`, `el`, `tr`, `ru`, `uk`, `bg`, `sr`, `hr`, `sl`, `lt`, `lv`, `et`, `ca`, `eu`, `gl`, `ja`, `zh-Hans`, `zh-Hant`, `ko`, `vi`, `th`, `id`, `ms`, `fil`, `ar`, `fa`, `he`, `hi`. Anything else falls back to English.
+
+Override with `-Language`:
+
+```powershell
+.\install.ps1 -Variant safe -Language ja
+```
+
+To add or fix a translation, edit [`translations.ps1`](./translations.ps1) (UTF-8 with BOM) and open a PR.
+
+> Labels are written to the registry as a snapshot at install time. If you change Windows UI language afterwards, re-run `install.ps1` to refresh.
 
 ### Manual way
 
@@ -59,7 +73,8 @@ Run `uninstall.ps1`, or double-click `uninstall.reg` (this leaves the icon file 
 | `install-safe.reg` | Registry entries — runs `claude` |
 | `install-yolo.reg` | Registry entries — runs `claude --dangerously-skip-permissions` |
 | `uninstall.reg` | Removes all registry entries |
-| `install.ps1` | Copies the icon, imports the chosen `.reg` |
+| `install.ps1` | Copies the icon, imports the chosen `.reg`, applies localized labels |
+| `translations.ps1` | Per-language menu labels (edit to add a language) |
 | `uninstall.ps1` | Removes registry entries and the icon |
 | `claude.ico` | Multi-resolution icon (16/24/32/48/64/128/256) |
 | `claude-source.png` | Source 512×512 PNG |
