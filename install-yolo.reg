@@ -1,0 +1,47 @@
+Windows Registry Editor Version 5.00
+
+; YOLO variant — adds --dangerously-skip-permissions so Claude Code runs
+; without per-tool permission prompts. Use only in directories you trust.
+; Install: copy claude.ico to %LOCALAPPDATA%\ClaudeHere\, then double-click this file.
+
+[HKEY_CLASSES_ROOT\Directory\shell\ClaudeHere]
+@="Open Claude here"
+"Icon"=hex(2):25,00,4c,00,4f,00,43,00,41,00,4c,00,41,00,50,00,50,00,44,00,41,00,54,00,41,00,25,00,5c,00,43,00,6c,00,61,00,75,00,64,00,65,00,48,00,65,00,72,00,65,00,5c,00,63,00,6c,00,61,00,75,00,64,00,65,00,2e,00,69,00,63,00,6f,00,00,00
+
+[HKEY_CLASSES_ROOT\Directory\shell\ClaudeHere\command]
+@="cmd.exe /k \"cd /d \"%1\" && claude --dangerously-skip-permissions\""
+
+[HKEY_CLASSES_ROOT\Directory\shell\ClaudeHereContinue]
+@="Open Claude here (continue)"
+"Icon"=hex(2):25,00,4c,00,4f,00,43,00,41,00,4c,00,41,00,50,00,50,00,44,00,41,00,54,00,41,00,25,00,5c,00,43,00,6c,00,61,00,75,00,64,00,65,00,48,00,65,00,72,00,65,00,5c,00,63,00,6c,00,61,00,75,00,64,00,65,00,2e,00,69,00,63,00,6f,00,00,00
+
+[HKEY_CLASSES_ROOT\Directory\shell\ClaudeHereContinue\command]
+@="cmd.exe /k \"cd /d \"%1\" && claude --dangerously-skip-permissions --continue\""
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHere]
+@="Open Claude here"
+"Icon"=hex(2):25,00,4c,00,4f,00,43,00,41,00,4c,00,41,00,50,00,50,00,44,00,41,00,54,00,41,00,25,00,5c,00,43,00,6c,00,61,00,75,00,64,00,65,00,48,00,65,00,72,00,65,00,5c,00,63,00,6c,00,61,00,75,00,64,00,65,00,2e,00,69,00,63,00,6f,00,00,00
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHere\command]
+@="cmd.exe /k \"cd /d \"%V\" && claude --dangerously-skip-permissions\""
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHereContinue]
+@="Open Claude here (continue)"
+"Icon"=hex(2):25,00,4c,00,4f,00,43,00,41,00,4c,00,41,00,50,00,50,00,44,00,41,00,54,00,41,00,25,00,5c,00,43,00,6c,00,61,00,75,00,64,00,65,00,48,00,65,00,72,00,65,00,5c,00,63,00,6c,00,61,00,75,00,64,00,65,00,2e,00,69,00,63,00,6f,00,00,00
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\ClaudeHereContinue\command]
+@="cmd.exe /k \"cd /d \"%V\" && claude --dangerously-skip-permissions --continue\""
+
+[HKEY_CLASSES_ROOT\Drive\shell\ClaudeHere]
+@="Open Claude here"
+"Icon"=hex(2):25,00,4c,00,4f,00,43,00,41,00,4c,00,41,00,50,00,50,00,44,00,41,00,54,00,41,00,25,00,5c,00,43,00,6c,00,61,00,75,00,64,00,65,00,48,00,65,00,72,00,65,00,5c,00,63,00,6c,00,61,00,75,00,64,00,65,00,2e,00,69,00,63,00,6f,00,00,00
+
+[HKEY_CLASSES_ROOT\Drive\shell\ClaudeHere\command]
+@="cmd.exe /k \"cd /d \"%1\" && claude --dangerously-skip-permissions\""
+
+[HKEY_CLASSES_ROOT\Drive\shell\ClaudeHereContinue]
+@="Open Claude here (continue)"
+"Icon"=hex(2):25,00,4c,00,4f,00,43,00,41,00,4c,00,41,00,50,00,50,00,44,00,41,00,54,00,41,00,25,00,5c,00,43,00,6c,00,61,00,75,00,64,00,65,00,48,00,65,00,72,00,65,00,5c,00,63,00,6c,00,61,00,75,00,64,00,65,00,2e,00,69,00,63,00,6f,00,00,00
+
+[HKEY_CLASSES_ROOT\Drive\shell\ClaudeHereContinue\command]
+@="cmd.exe /k \"cd /d \"%1\" && claude --dangerously-skip-permissions --continue\""

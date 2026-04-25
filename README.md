@@ -1,11 +1,17 @@
-# Claude Explorer Context Menu
+# ClaudeHere
 
-Adds two right-click entries to Windows Explorer for quickly launching [Claude Code](https://claude.com/claude-code) in the current folder:
+<p align="center">
+  <img src="claude-source.png" width="128" alt="Claude icon" />
+</p>
+
+Right-click anywhere in Windows Explorer to launch [Claude Code](https://claude.com/claude-code) in that folder.
+
+Adds two entries to the context menu:
 
 - **Open Claude here** — starts a fresh chat
-- **Open Claude here (continue)** — resumes the most recent chat
+- **Open Claude here (continue)** — resumes the most recent chat (`claude --continue`)
 
-Both entries appear when right-clicking a folder, the empty space inside a folder, or a drive.
+Both appear when right-clicking a folder, the empty space inside a folder, or a drive.
 
 ## Prerequisites
 
@@ -14,36 +20,52 @@ Both entries appear when right-clicking a folder, the empty space inside a folde
 
 ## Install
 
-1. Download [`claude-context-menu.reg`](./claude-context-menu.reg)
-2. Double-click the file
-3. Confirm the security prompt and the registry merge
-4. On Windows 11, the entries live under **Show more options** (or hold `Shift` while right-clicking)
+Pick a variant:
 
-If they don't show up immediately, restart Explorer (Task Manager → *Windows Explorer* → *Restart*).
+| Variant | Command run | When to use |
+| --- | --- | --- |
+| **safe** (default) | `claude` | Keeps Claude Code's per-tool permission prompts. Recommended. |
+| **yolo** | `claude --dangerously-skip-permissions` | Skips permission prompts. Faster, but only use in folders you fully trust. |
+
+### Easy way (PowerShell)
+
+Right-click `install.ps1` → *Run with PowerShell*. Defaults to safe.
+
+For the yolo variant:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Variant yolo
+```
+
+The script copies `claude.ico` to `%LOCALAPPDATA%\ClaudeHere\` and imports the matching `.reg` file.
+
+### Manual way
+
+1. Copy `claude.ico` to `%LOCALAPPDATA%\ClaudeHere\claude.ico`
+2. Double-click `install-safe.reg` *or* `install-yolo.reg`
+3. Confirm the registry merge
+
+> On Windows 11 the entries live under **Show more options** in the context menu (or hold `Shift` while right-clicking). If they don't show up, restart Explorer (Task Manager → *Windows Explorer* → *Restart*).
 
 ## Uninstall
 
-Double-click [`claude-context-menu-uninstall.reg`](./claude-context-menu-uninstall.reg) and confirm.
+Run `uninstall.ps1`, or double-click `uninstall.reg` (this leaves the icon file behind; delete `%LOCALAPPDATA%\ClaudeHere\` manually if you care).
 
-## What it does
+## Files
 
-The commands launched are:
+| File | Purpose |
+| --- | --- |
+| `install-safe.reg` | Registry entries — runs `claude` |
+| `install-yolo.reg` | Registry entries — runs `claude --dangerously-skip-permissions` |
+| `uninstall.reg` | Removes all registry entries |
+| `install.ps1` | Copies the icon, imports the chosen `.reg` |
+| `uninstall.ps1` | Removes registry entries and the icon |
+| `claude.ico` | Multi-resolution icon (16/24/32/48/64/128/256) |
+| `claude-source.png` | Source 512×512 PNG |
 
-```
-cmd.exe /k "cd /d "<folder>" && claude --dangerously-skip-permissions"
-cmd.exe /k "cd /d "<folder>" && claude --dangerously-skip-permissions --continue"
-```
+## Credit
 
-> **Note:** `--dangerously-skip-permissions` skips Claude Code's per-tool permission prompts. Remove it from the `.reg` file if you'd rather keep the prompts.
-
-## Customize
-
-Open `claude-context-menu.reg` in a text editor to:
-
-- Rename the menu entries (change the `@="..."` value)
-- Change the icon (`"Icon"="cmd.exe"`)
-- Drop the `--dangerously-skip-permissions` flag
-- Use `--resume` instead of `--continue` to get a chat picker
+Icon: Anthropic Claude logo (CC0 / public domain), via UXWing.
 
 ## License
 
