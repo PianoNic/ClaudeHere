@@ -13,6 +13,10 @@ Adds two entries to the context menu:
 
 Both appear when right-clicking a folder, the empty space inside a folder, or a drive.
 
+<p align="center">
+  <img src="assets/context-menu-preview.png" alt="Context menu preview showing 'Claude hier öffnen' and 'Claude hier öffnen (fortsetzen)'" />
+</p>
+
 ## Prerequisites
 
 - Windows 10 / 11
@@ -78,6 +82,7 @@ Run `uninstall.ps1`, or double-click `reg/uninstall.reg` (this leaves the icon f
 | `reg/uninstall.reg` | Removes all registry entries |
 | `assets/claude.ico` | Multi-resolution icon (16/24/32/48/64/128/256) |
 | `assets/claude-source.png` | Source 512×512 PNG |
+| `assets/context-menu-preview.png` | Screenshot of the context menu |
 
 ## Credit
 
